@@ -163,7 +163,7 @@ void InitialiseSDL()
 void CreateWindow()
 {
 	// Open a window
-	window = SDL_CreateWindow("OpenGL, SDL2 and Assimp Demo", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 800, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("OpenGL, SDL2 and Assimp Demo", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, displayWidth, displayHeight, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_SHOWN);
 	
 	// Error checking
 	if(window == nullptr)
@@ -243,6 +243,9 @@ void InitialiseGlew()
 	// Enable depth testing
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
+	
+	// Enable vsync
+	SDL_GL_SetSwapInterval(1);
 	
 	// Set clear color
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -635,6 +638,15 @@ void Update(float deltaTime)
 	{
 		// Exit main loop on quit event
 		if(e.type == SDL_QUIT || (e.type == SDL_KEYDOWN && e.key.keysym.scancode == SDL_SCANCODE_ESCAPE)) quit = true;
+	
+		// Handle window resize
+		if(e.type == SDL_WINDOWEVENT && e.window.event == SDL_WINDOWEVENT_RESIZED)
+		{
+			// Resize viewport. If the camera projection wasn't been recalculated each frame, you would also need to update the projection matrix here.
+			displayWidth = e.window.data1;
+			displayHeight = e.window.data2;
+			glViewport(0, 0, displayWidth, displayHeight);
+		}
 	}
 
 	// Get the current keystate. This must be called after SDL_PollEvents has finished.

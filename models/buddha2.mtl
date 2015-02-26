@@ -1,0 +1,8 @@
+newmtl Default
+Ka 0.117647 0.117647 0.117647
+Kd 0.752941 0.752941 0.752941
+Ks 0.752941 0.752941 0.752941
+illum 3
+Ns 8
+map_Ka buddha2-atlas.jpg
+map_Kd buddha2-atlas.jpg

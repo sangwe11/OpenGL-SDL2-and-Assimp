@@ -4,6 +4,7 @@ Small demo to show how to load and render a model using OpenGL and SDL2, loaded 
 #Dependancies
 + git
 + libsdl2
++ libsdl2-image
 + libglew-dev
 + libassimp-dev
 
